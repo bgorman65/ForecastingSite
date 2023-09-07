@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+</head>
+<body>
+    <style>
+        body {
+            background-image: url("https://wallpaperaccess.com/full/1540010.jpg");
+        }
+        label {
+            display: inline-block;
+            width: 910px;
+            text-align: right;
+            color: white;
+        }
+    </style>
+    <div>
+        <h1 style = "text-align: center; font-family: Arial; color: rgb(255,255,255)">
+            Current Weather
+        </h1>
+        <h2 style = "text-align: center; font-family: Arial; color: rgb(255,255,255)">
+            This website will generate the weather for a given area based off the WeatherAPI.
+        </h2>
+    </div>
+    <div>
+        <label for = "ZipCode">
+            Enter your Zip Code:
+        </label>
+        <input type = "text" id = "ZipCode" name = "ZipCode" placeholder = "Zip Code">
+        <button onclick = "grabInfo()">
+            Go!
+        </button>
+    </div>
+    <script>
+        async function grabInfo(){
+            var zip = document.getElementById("ZipCode").value;
+            const response = await fetch("http://api.weatherapi.com/v1/current.json?key=="+zip+"&aqi=no");
+            const jsonData = await response.json();
+            const location = jsonData.location.name;
+            const curTemp = jsonData.current.temp_f;
+            const wind = jsonData.current.wind_mph;
+            const humidity = jsonData.current.humidity;
+            window.alert("Location: " + location + "\nCurrent Temperature in Fahrenheit: " + curTemp + "\nWind in MPH: "+ wind + "\nHumidity: "+ humidity + "%");
+            console.log(location);
+            console.log(curTemp);
+            console.log(wind);
+            console.log(humidity);
+            console.log(jsonData);
+        }
+    </script>
+</body>
+</html>
